@@ -13,7 +13,7 @@ instance.interceptors.response.use(
     response => {
         const data = response.data
         if (data.code === 0) {
-            alert(1)
+            // alert(1)
             return data.data
         }
         console.error("request error", data)

@@ -32,11 +32,6 @@ import MyDivider from "@/components/MyDivider.vue";
 import { useRouter, useRoute } from 'vue-router';
 import myAxios from "@/plugins/myAxios";
 
-// myAxios.get('/post/get/vo?id=' + '1869024770809425922', 
-// ).then((resp) => {
-//   console.log(resp);
-// })
-
 const postList = ref([]);
 const userList = ref([]);
 // const picList = ref([]);
@@ -44,8 +39,6 @@ const userList = ref([]);
 // 搜索框
 const route = useRoute();
 const router = useRouter();
-
-// const searchText = ref(route.query.text || "");
 
 const mode = ref<TabsProps['tabPosition']>('top');
 
@@ -70,7 +63,6 @@ const searchParams = ref(initSearchParams)
 
 // 监听路由事件，并更新 URL
 watchEffect(() => {
-  // Object.assign(searchParams.value, route.query);
   searchParams.value = {
     ...initSearchParams,      // 设置默认参数
     text: route.query.text,       
@@ -79,20 +71,22 @@ watchEffect(() => {
   // loadData(searchParams.value);
 })
 
-const loadData = (searchParams: any) => {
+const loadData = (params: any) => {
+  // alert('Hello')
+  console.log(params);
   const postQuery = {
-    ...searchParams,
-    searchText: searchParams.text,
+    ...searchParams.value,
+    searchText: params.text,
   }
 
   const picQuery = {
-    ...searchParams,
-    searchText: searchParams.text,
+    ...searchParams.value,
+    searchText: params.text,
   }
 
   const userQuery = {
-    ...searchParams,
-    userName: searchParams.text,
+    ...searchParams.value,
+    userName: params.text,
   }
   // 获取帖子列表
 try {
@@ -142,13 +136,13 @@ try {
 }
 
 // 首次加载数据
-loadData(searchParams.value);
+loadData(initSearchParams);
 
 // 当用户点击搜索按钮或切换 tab 时，回传 URL, 实现状态监听
 const onSearch = (value: string) => {
   // console.log('use searchText', value);
   // console.log('or use this.searchText', this.searchText);
-  alert(value);
+  // alert(value);
 
   // 改变 url, 保存用户的搜索状态
   router.push({
@@ -159,6 +153,7 @@ const onSearch = (value: string) => {
 };
 
 const onTabChange = (key: string) => {
+  // alert(key)
   router.push({
       path: `/${key}`,            // 设置动态路由 url
       query: searchParams.value,
