@@ -10,7 +10,8 @@
                     </template>
 <template #avatar><a-avatar :src="item.avatar" /></template> -->
                 </a-list-item-meta>
-                <a-card hoverable style="width: 240px">
+                <!-- <a-card hoverable style="width: 240px;"> -->
+                <a-card hoverable>
                     <template #cover>
                         <!-- <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" /> -->
                         <img alt="example" :src="portrait" />
