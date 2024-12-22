@@ -11,7 +11,7 @@
           <PostList :post-list="postList"/>
         </a-tab-pane>
         <a-tab-pane key="picture" tab="图片">
-          <PictureList />
+          <PictureList :picture-list="picList"/>
         </a-tab-pane>
         <a-tab-pane key="user" tab="用户">
           <UserList :user-list="userList"/>
@@ -34,7 +34,7 @@ import myAxios from "@/plugins/myAxios";
 
 const postList = ref([]);
 const userList = ref([]);
-// const picList = ref([]);
+const picList = ref([]);
 
 // 搜索框
 const route = useRoute();
@@ -119,19 +119,19 @@ try {
 }
 
 // 获取图片列表
-// try {
-//   myAxios.post('/picture/list/page/vo', {}
-// ).then((resp) => {
-//   console.log(resp);
-//   try {
-//     picList.value = resp.records;    
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
-// } catch (error) {
-//   console.log(error);
-// }
+try {
+  myAxios.post('/picture/list/page/vo', picQuery
+).then((resp) => {
+  console.log(resp);
+  try {
+    picList.value = resp.records;    
+  } catch (error) {
+    console.log(error)
+  }
+})
+} catch (error) {
+  console.log(error);
+}
 
 }
 
