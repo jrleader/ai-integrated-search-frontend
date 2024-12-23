@@ -204,7 +204,6 @@ const onTabChange = (key: string) => {
     path: `/${key}`,            // 设置动态路由 url
     query: searchParams.value,
   })
-  // loadData(searchParams.value);
 };
 
 </script>
