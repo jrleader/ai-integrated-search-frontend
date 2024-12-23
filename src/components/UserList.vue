@@ -3,7 +3,7 @@
     <!-- 用户列表  -->
     <a-list :grid="{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }" :data-source="userList">
         <template #renderItem="{ item }">
-            <a-list-item key="item.title">
+            <a-list-item key="item.id">
                 <a-list-item-meta :description="item.description">
                     <!-- <template #title>
                         <a :href="item.href">{{ item.title }}</a>
