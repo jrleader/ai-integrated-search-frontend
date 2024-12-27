@@ -1,7 +1,7 @@
 <template>
     <!-- <img alt="" src=""/> -->
     <!-- 用户列表  -->
-    <a-list :grid="{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }" :data-source="userList">
+    <a-list :grid="{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 6, xxl: 3 }" :data-source="userList" :pagination="pagination">
         <template #renderItem="{ item }">
             <a-list-item key="item.id">
                 <a-list-item-meta :description="item.description">
@@ -54,7 +54,7 @@ const pagination = {
     onChange: (page: number) => {
         console.log(page);
     },
-    pageSize: 3,
+    pageSize: 6,
 };
 
 </script>

@@ -85,7 +85,7 @@ const pagination = {
     onChange: (page: number) => {
         console.log(page);
     },
-    pageSize: 3,
+    pageSize: 5,
 };
 
 const actions: Record<string, any>[] = [
