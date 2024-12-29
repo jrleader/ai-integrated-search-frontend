@@ -50,8 +50,56 @@ const pagination = {
 </script>
 
 <style scoped>
-    /* a-list-item a-card {
+/* a-list-item a-card {
         width: 100%;
         height: 100%;
     } */
+/* Add these styles */
+:deep(.ant-list-item) {
+    height: 100%;
+}
+
+:deep(.ant-card) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+:deep(.ant-card-cover) {
+    flex: 1;
+    overflow: hidden;
+}
+
+:deep(.ant-card-cover img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* This maintains aspect ratio while covering the space */
+}
+
+:deep(.ant-card-body) {
+    flex-shrink: 0;
+    /* Prevents the body from shrinking */
+}
+
+/* Add these if you need more control over image heights */
+:deep(.ant-card-cover img) {
+  max-height: 200px; /* Set a maximum height for images */
+  min-height: 200px; /* Set a minimum height for images */
+  min-width: 200px;
+  max-width: 500px;
+}
+
+:deep(.ant-card-meta) {
+  min-height: 80px; /* Ensure consistent height for title/description area */
+}
+
+/* If you want to limit text overflow */
+:deep(.ant-card-meta-description) {
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 </style>
