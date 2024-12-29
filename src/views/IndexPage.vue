@@ -11,7 +11,10 @@
           <PostList :post-list="postList"/>
       </a-tab-pane>
       <a-tab-pane key="picture" tab="图片">
-          <PictureList :picture-list="picList"/>
+          <PictureList :picture-list="picList" />
+        </a-tab-pane>
+        <a-tab-pane key="video" tab="视频">
+          <VideoList :video-list="videoList" />
       </a-tab-pane>
       <a-tab-pane key="user" tab="用户">
           <UserList :user-list="userList"/>
@@ -36,6 +39,8 @@ import { message } from "ant-design-vue";
 const postList = ref([]);
 const userList = ref([]);
 const picList = ref([]);
+const videoList = ref([]);
+
 
 // 搜索框
 const route = useRoute();
