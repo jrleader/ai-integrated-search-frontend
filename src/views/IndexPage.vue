@@ -1,9 +1,41 @@
 <template>
   <div class="index-page">
-    <a-input-search v-model:value="searchText" placeholder="请输入搜索关键词" enter-button="搜索" size="large"
-      @search="onSearch" />
-    <!-- {{ JSON.stringify(searchParams) }} -->
-    <!-- {{ JSON.stringify(postList) }} -->
+    <MyDivider />
+    <div class="certain-category-search-wrapper" style="width: 100%">
+      <a-auto-complete v-model:value="autoCompleteListItemValue" class="certain-category-search"
+        popup-class-name="certain-category-search-dropdown" :dropdown-match-select-width="500" style="width: 100%"
+        :options="dataSource" @select="onSelect">
+        <template #option="item"> <!-- 这里的 item 指 dataSource 里的每一项 -->
+          <template v-if="item.options">
+            <span>
+              {{ item.value }}
+            </span>
+          </template>
+          <template v-else-if="item.value === 'all'">
+            <a :href="'https://www.baidu.com/s?ie=utf-8&wd=' + searchText" target="_blank" rel="noopener noreferrer">
+              View all results
+            </a>
+          </template>
+          <template v-else>
+            <div style="display: flex; justify-content: space-between">
+              <!-- 这里的 item 🈯️ options 数组里的每一项 -->
+              {{ item.value }}  
+              <a style="float: right" :href="'https://www.baidu.com/s?ie=utf-8&wd='+item.value" target="_blank"
+                rel="noopener noreferrer">
+                more
+              </a>
+              <!-- <span>
+                <UserOutlined />
+                {{ item.count }}
+              </span> -->
+            </div>
+          </template>
+        </template>
+        <a-input-search @search="onSearch" placeholder="input here" size="large" enter-button="搜索"
+          style="width: 100%"></a-input-search>
+      </a-auto-complete>
+    </div>
+
     <MyDivider />
     <!-- tab 栏 -->
       <a-tabs v-model:activeKey="activeKey" :tab-position="mode" :style="{ height: '200px' }" @tabScroll="callback" @change="onTabChange">
