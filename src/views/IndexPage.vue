@@ -57,10 +57,13 @@
     </div>
 
     <MyDivider />
+
+    <div class="searchRes">
     <!-- tab 栏 -->
-      <a-tabs v-model:activeKey="activeKey" :tab-position="mode" :style="{ height: '200px' }" @tabScroll="callback" @change="onTabChange">
+      <a-tabs v-model:activeKey="activeKey" :tab-position="mode" :style="{ height: '200px' }" @tabScroll="callback"
+        @change="onTabChange">
       <a-tab-pane key="post" tab="文章">
-          <PostList :post-list="postList"/>
+          <PostList :post-list="postList" />
       </a-tab-pane>
       <a-tab-pane key="picture" tab="图片">
           <PictureList :picture-list="picList" />
@@ -69,10 +72,11 @@
           <VideoList :video-list="videoList" />
       </a-tab-pane>
       <a-tab-pane key="user" tab="用户">
-          <UserList :user-list="userList"/>
+          <UserList :user-list="userList" />
       </a-tab-pane>
       <!-- <a-tab-pane v-for="i in 30" :key="i" :tab="`Tab-${i}`">Content of tab {{ i }}</a-tab-pane> -->
     </a-tabs>
+  </div>
   </div>
 </template>
 
@@ -168,7 +172,6 @@ const postList = ref([]);
 const userList = ref([]);
 const picList = ref([]);
 const videoList = ref([]);
-
 
 // 搜索框
 const route = useRoute();
