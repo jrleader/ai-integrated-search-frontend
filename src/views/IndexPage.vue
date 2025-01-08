@@ -243,11 +243,52 @@ const loadData = (params: any) => {
   if (query.searchText === undefined || query.searchText === '' || query.searchText === null) {
     return;
       }
+  // 搜索建议
+  myAxios.post('/search/keyword_suggest', query).then((resp: any) => {
+    console.log(resp);
+    const suggestions = Array.from(resp);
+    console.log("Suggestions: " + suggestions);
+    const max_suggestions = 5;
+    if (suggestions === undefined) {
+      return;
     }
-  )
-  } catch (error) {
-    console.log(error)
-  }
+    if (!Object.hasOwn(suggestions, "length")) {
+      return;
+    }
+    if (suggestions.length === 1 || suggestions.length === 0) {
+      return;
+    }
+    // alert(suggestions.length)
+    // 重置搜索建议
+    getSuggestion(suggestions, 6, 5).then(
+      (results) => {
+        // for (const key in results) {
+        //   if (Object.hasOwn(results, key)) {
+        //     const element = results[key];
+        //     console.log(element)
+        //   }
+        // }
+        // searchSuggestions.setOptions(results)
+        console.log("Search suggestions have been updated!")
+      }
+    )
+    // for (let i = 0; i < max_suggestions; i++) {
+    //   // let idx = Math.ceil(suggestions.length * Math.random()) - 1;
+    //   // while (unique_sgns.has(suggestions[idx])) {
+    //   //   idx = Math.ceil(suggestions.length * Math.random()) - 1;
+    //   // }
+    //   const idx = i
+    //   // unique_sgns.add(suggestions[idx])
+    //   // 随机选择一项搜索建议       
+    //   dataSource.value[1].options.push({
+    //     value: suggestions[idx],
+    //   })
+    // }
+    // unique_sgns.clear();
+  }).catch((error) => {
+    // alert(error);
+    console.log(error);
+  })
 }
 
 // 钩子函数
