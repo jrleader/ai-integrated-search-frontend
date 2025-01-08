@@ -418,4 +418,40 @@ const onTabChange = (key: string) => {
   })
 };
 
+// 获取搜索建议
+const getSuggestion = async (arr: any[], jump: number, max_sugg_count: number) => {
+  const currTime = new Date().getUTCMilliseconds()
+  const suggestions = []
+  const interval = jump + 1
+  const start = 0
+  for (let index = 0; index < max_sugg_count; index++) {
+    let pos = start + interval
+    if (pos >= arr.length) {
+      pos %= arr.length
+    }
+    const element = arr[pos];
+    suggestions.push({
+      label: element,
+      count: 0
+    })
+    // arr = Array.from(arr)
+    arr.splice(pos, 1)        // 从原数组删除元素
+    console.log("element " + pos + " from array arr has been removed.")
+  }
+  searchSuggestions.setOptions(suggestions)
+  await nextTick() // vue 内置接口，同步 DOM 更新节点，调用后表明 DOM 已更新。
+  console.log("List of suggestions has been updated!")
+  console.log("DOM update time cost: " + (new Date().getUTCMilliseconds() - currTime) / 1000 + "s")
+}
+
+// 更新搜索历史
+const updateHistory = async (historyItem: string) => {
+  const currTime = new Date().getUTCMilliseconds()
+  searchHistories.addOption(historyItem)
+  await nextTick() // vue 内置接口，同步 DOM 更新节点，调用后表明 DOM 已更新。
+  console.log("DOM of search histories has been updated!")
+  console.log("DOM update time cost: " + (new Date().getUTCMilliseconds() - currTime) / 1000 + "s")
+}
+
+
 </script>
