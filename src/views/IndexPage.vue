@@ -304,7 +304,7 @@ watchEffect(() => {
     type: route.params.category || activeKey// 搜索类型设置为当前已被选中的标签
     // type: activeKey, // 搜索类型设置为当前已被选中的标签
   } as any;
-  loadData(searchParams.value);   
+  loadData(searchParams.value);
 })
 
 // 分内容搜索接口
