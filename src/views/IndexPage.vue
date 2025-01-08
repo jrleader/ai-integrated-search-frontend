@@ -183,7 +183,7 @@ const mode = ref<TabsProps['tabPosition']>('top');
 // const activeKey = ref('post');
 
 // 将标签页状态更改为与路由同步，避免状态丢失
-const activeKey = route.params.category || 'post';
+const activeKey = route.params.category || 'picture';
 const callback: TabsProps['onTabScroll'] = val => {
   console.log(val);
 };
@@ -193,7 +193,7 @@ const searchText = ref(route.query.text || searchSuggestions.$state.options[0].l
 
 const initSearchParams = {
   // type: activeKey,
-  type: activeKey || 'picture',
+  type: activeKey,
   text: searchText.value,
   pageSize: 10,
   pageNum: 10,
@@ -204,11 +204,11 @@ const searchParams = ref(initSearchParams)
 
 console.log(route.query.text)
 
-// 搜索关键词
-const searchText = ref(route.query.text || "");
+// 存储搜索建议
+// const unique_sgns = new Set();
 
 const loadData = (params: any) => {
-  const type  = searchParams.value.type;
+  const type = searchParams.value.type;
   // alert(type)
   if(!type) {
     message.error('类别为空');
