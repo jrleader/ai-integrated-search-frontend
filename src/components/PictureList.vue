@@ -44,7 +44,7 @@ const pagination = {
     onChange: (page: number) => {
         console.log(page);
     },
-    pageSize: 9,
+    pageSize: 6,
 };
 
 </script>

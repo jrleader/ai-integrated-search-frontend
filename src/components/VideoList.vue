@@ -1,6 +1,6 @@
 <template>
     <!-- 图片列表  -->
-    <a-list :grid="{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 3, xxl: 3 }" :data-source="videoList">
+    <a-list :grid="{ gutter: 16, xs: 1, sm: 2, md: 4, lg: 4, xl: 3, xxl: 3 }" :data-source="videoList" :pagination="pagination">
         <template #renderItem="{ item }">
             <a-list-item key="item.id">
                 <a-list-item-meta>
