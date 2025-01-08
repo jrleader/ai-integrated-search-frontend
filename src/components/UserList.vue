@@ -14,7 +14,7 @@
                 <a-card hoverable>
                     <template #cover>
                         <!-- <img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" /> -->
-                        <img alt="example" :src="portrait" />
+                        <!-- <img alt="example" :src="portrait" /> -->
                     </template>
                     <!-- <a-card-meta title="Europe Street beat">
                     <template #description>www.instagram.com</template>
@@ -40,7 +40,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { withDefaults, defineProps } from "vue";
-import portrait from '../assets/portrait.png'
+// import portrait from '../assets/portrait.png'
 
 interface Props {
     userList: any[]
