@@ -380,7 +380,25 @@ const onSearch = (value: string) => {
   // console.log('use searchText', value);
   // console.log('or use this.searchText', this.searchText);
   // alert(value);
-
+  // const autocomplete = document.getElementsByClassName('ant-select-focused') || document.querySelector("#app > div > div.certain-category-search-wrapper > div");
+  // autocomplete.item(0).classList.remove("ant-select-focused");
+  // autocomplete.item(0)?.blur();
+  // const searchBar = document.querySelector("#rc_select_0");
+  // searchBar?.classList.toggle("aria-expanded");
+  if (!value) {
+    message.error('搜索词为空，请输入搜索词！');
+    message.info('返回全部结果，若要搜索特定内容请输入搜索词！')
+  }
+  else {
+    closeDropDown()
+    // 更新搜索历史
+    console.log("Adding search history...")
+    updateHistory(autoCompleteBarValue.value as string).then(
+      (results) => {
+        console.log("Search history has been updated!")
+      }
+    )
+  }
   // 改变 url, 保存用户的搜索状态
   router.push({
     // query: searchParams.value,
