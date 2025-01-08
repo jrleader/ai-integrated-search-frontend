@@ -17,29 +17,29 @@
       style="width: 250px"
     >
       <template #option="item">
-          <template v-if="item.options">
-            <span>
+        <template v-if="item.options">
+          <span>
           <!-- 这里的 item 指 dataSource 里的每一项 -->
-              {{ item.value }}
-            </span>
-          </template>
-          <template v-else-if="item.value === 'all'">
+            {{ item.value }}
+          </span>
+        </template>
+        <template v-else-if="item.value === 'all'">
           <a
             href="#"
             target="_blank"
             rel="noopener noreferrer"
           >
             查看所有结果
-            </a>
-          </template>
-          <template v-else>
-            <div style="display: flex; justify-content: space-between">
+          </a>
+        </template>
+        <template v-else>
+          <div style="display: flex; justify-content: space-between">
               <!-- 这里的 item 🈯️ options 数组里的每一项 -->
             {{ item.label }}
-              <!-- <span>
-                <UserOutlined />
+            <!-- <span>
+              <UserOutlined />
               搜索过{{ item.count }}次
-              </span> -->
+            </span> -->
             <a v-if="item.label !== ''"
               style="float: right"
               :href="'https://www.baidu.com/s?ie=utf-8&wd=' + item.label"
@@ -49,34 +49,34 @@
               更多
             </a>
             <a v-else href="#"></a>
-            </div>
-          </template>
+          </div>
         </template>
+      </template>
       <a-input-search placeholder="在此键入搜索词" size="large" @search="onSearch"></a-input-search>
-      </a-auto-complete>
+    </a-auto-complete>
     </div>
 
     <MyDivider />
 
     <div class="searchRes">
-    <!-- tab 栏 -->
+      <!-- tab 栏 -->
       <a-tabs v-model:activeKey="activeKey" :tab-position="mode" :style="{ height: '200px' }" @tabScroll="callback"
         @change="onTabChange">
-      <a-tab-pane key="post" tab="文章">
+        <a-tab-pane key="post" tab="文章">
           <PostList :post-list="postList" />
-      </a-tab-pane>
-      <a-tab-pane key="picture" tab="图片">
+        </a-tab-pane>
+        <a-tab-pane key="picture" tab="图片">
           <PictureList :picture-list="picList" />
         </a-tab-pane>
         <a-tab-pane key="video" tab="视频">
           <VideoList :video-list="videoList" />
-      </a-tab-pane>
-      <a-tab-pane key="user" tab="用户">
+        </a-tab-pane>
+        <a-tab-pane key="user" tab="用户">
           <UserList :user-list="userList" />
-      </a-tab-pane>
-      <!-- <a-tab-pane v-for="i in 30" :key="i" :tab="`Tab-${i}`">Content of tab {{ i }}</a-tab-pane> -->
-    </a-tabs>
-  </div>
+        </a-tab-pane>
+        <!-- <a-tab-pane v-for="i in 30" :key="i" :tab="`Tab-${i}`">Content of tab {{ i }}</a-tab-pane> -->
+      </a-tabs>
+    </div>
   </div>
 </template>
 
@@ -202,7 +202,6 @@ const initSearchParams = {
 // 存储搜索参数，初始化为默认值
 const searchParams = ref(initSearchParams)
 
-console.log(route.query.text)
 
 // 存储搜索建议
 // const unique_sgns = new Set();
@@ -220,18 +219,17 @@ const loadData = (params: any) => {
   }
 
   // 调用聚合搜索接口
-  try {
-    myAxios.post('/search/all', query).then((resp: any) => {
-      // alert(query.searchText)
-      // alert(query.type)
-      // console.log('Response fetched');
-      // console.log(resp);
-      const data = resp;
-      if (type === 'post') {
+  myAxios.post('/search/all', query).then((resp: any) => {
+    // alert(query.searchText)
+    // alert(query.type)
+    // console.log('Response fetched');
+    // console.log(resp);
+    const data = resp;
+    if (type === 'post') {
       postList.value = data.dataList;
-      } else if (type === 'picture') {
+    } else if (type === 'picture') {
       picList.value = data.dataList.filter((item: any) => !item.url.startsWith("https://pic1.arkoo.com/"));  // 过滤 url 存在问题的图片
-      } else if (type === 'user') {
+    } else if (type === 'user') {
       userList.value = data.dataList;
     } else if (type === 'video') {
       videoList.value = data.dataList;
@@ -245,7 +243,7 @@ const loadData = (params: any) => {
   // 若搜索词为空，则不提供搜索建议
   if (query.searchText === undefined || query.searchText === '' || query.searchText === null) {
     return;
-      }
+  }
   // 搜索建议
   myAxios.post('/search/keyword_suggest', query).then((resp: any) => {
     console.log(resp);
@@ -327,53 +325,6 @@ const loadData_separate_reqs = (params: any) => {
     userProfile: params.text,
   }
 }
-// 获取帖子列表
-// try {
-//   myAxios.post('/post/list/page/vo', postQuery
-// ).then((resp) => {
-//   console.log(resp);
-//   try {
-//     postList.value = resp.records;    
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
-// } catch (error) {
-//   console.log(error);
-// }
-
-// // 获取用户列表
-// try {
-//   myAxios.post('/user/list/page/vo', userQuery
-// ).then((resp) => {
-//   console.log(resp);
-//   try {
-//     userList.value = resp.records;    
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
-// } catch (error) {
-//   console.log(error);
-// }
-
-// // 获取图片列表
-// try {
-//   myAxios.post('/picture/list/page/vo', picQuery
-// ).then((resp) => {
-//   console.log(resp);
-//   try {
-//     picList.value = resp.records;    
-//   } catch (error) {
-//     console.log(error)
-//   }
-// })
-// } catch (error) {
-//   console.log(error);
-// }
-
-// 首次加载数据
-// loadData(initSearchParams);
 
 // 当用户点击搜索按钮或切换 tab 时，回传 URL, 实现状态监听
 const onSearch = (value: string) => {
@@ -401,13 +352,10 @@ const onSearch = (value: string) => {
   }
   // 改变 url, 保存用户的搜索状态
   router.push({
-    // query: searchParams.value,
     query: {
       text: value,
     }
   })
-
-  // loadData(searchParams.value);
 };
 
 const onTabChange = (key: string) => {
