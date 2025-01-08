@@ -1,5 +1,7 @@
-# ai-integrated-search-frontend
+# ai-integrated-search-frontend-master
+
 The frontend component of the AI integrated search application, powered by AI agents
+
 
 ## Project setup
 ```
