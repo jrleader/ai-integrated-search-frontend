@@ -297,8 +297,9 @@ const loadData = (params: any) => {
 watchEffect(() => {
   searchParams.value = {
     ...initSearchParams,        // 设置默认参数
-    text: route.query.text,
-    type: route.params.category, // 搜索类型设置为当前已被选中的标签
+    text: route.query.text || searchText,
+    type: route.params.category || activeKey// 搜索类型设置为当前已被选中的标签
+    // type: activeKey, // 搜索类型设置为当前已被选中的标签
   } as any;
   loadData(searchParams.value);   
 })
