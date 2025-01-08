@@ -225,11 +225,23 @@ const loadData = (params: any) => {
       // console.log(resp);
       const data = resp;
       if (type === 'post') {
-        postList.value = data.postList;
+      postList.value = data.dataList;
       } else if (type === 'picture') {
-        picList.value = data.pictureList;
+      picList.value = data.dataList.filter((item: any) => !item.url.startsWith("https://pic1.arkoo.com/"));  // 过滤 url 存在问题的图片
       } else if (type === 'user') {
-        userList.value = data.userList;
+      userList.value = data.dataList;
+    } else if (type === 'video') {
+      videoList.value = data.dataList;
+    }
+  }
+  ).catch((error) => {
+    // alert(error);
+    console.log(error);
+  })
+
+  // 若搜索词为空，则不提供搜索建议
+  if (query.searchText === undefined || query.searchText === '' || query.searchText === null) {
+    return;
       }
     }
   )
