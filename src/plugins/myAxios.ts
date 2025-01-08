@@ -8,6 +8,14 @@ const instance = axios.create(
     }
 )
 
+instance.interceptors.request.use(
+    config => {
+        config.headers['Access-Control-Allow-Origin'] = '*'
+        config.headers['Content-Type'] = 'application/json;charset=UTF-8'
+        return config
+    }
+)
+
 // 使用响应拦截器取出响应值
 instance.interceptors.response.use(
     response => {
