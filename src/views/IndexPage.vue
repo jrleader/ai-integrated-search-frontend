@@ -178,8 +178,6 @@ const picList = ref([]);
 const videoList = ref([]);
 
 // 搜索框
-const route = useRoute();
-const router = useRouter();
 
 const mode = ref<TabsProps['tabPosition']>('top');
 
@@ -243,6 +241,9 @@ const loadData = (params: any) => {
     console.log(error);
   })
 
+  // alert(5)
+  // alert(activeKey)
+
   // 若搜索词为空，则不提供搜索建议
   if (query.searchText === undefined || query.searchText === '' || query.searchText === null) {
     return;
@@ -299,12 +300,19 @@ const loadData = (params: any) => {
 // 若函数中的任意变量被修改，就会重新执行一遍
 // 监听路由事件，并更新 URL
 watchEffect(() => {
+  // alert(2)
   searchParams.value = {
     ...initSearchParams,          // 设置默认参数
     text: route.query.text,
     type: route.params.category || activeKey,   // 搜索类型设置为当前已被选中的标签
   } as any;
-  loadData(searchParams.value);
+  // alert(searchParams.value.type)
+  // alert(3)
+  // alert(activeKey)
+  // alert(4)
+  loadData(searchParams.value)
+  // alert(6)
+  // alert(activeKey)
 })
 
 // 分内容搜索接口
@@ -362,7 +370,8 @@ const onSearch = (value: string) => {
 };
 
 const onTabChange = (key: string) => {
-  // alert(key)
+  // alert(activeKey)
+  // alert(1)
   router.push({
     path: `/${key}`,            // 设置动态路由 url
     query: {
