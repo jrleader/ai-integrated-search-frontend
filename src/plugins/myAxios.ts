@@ -3,7 +3,7 @@ import axios from "axios";
 export const isDev = process.env.NODE_ENV === 'development'
 
 const baseURLs = {
-    dev: "http://192.168.3.21:8101/api",
+    dev: "http://localhost:8101/api",
     prod: "https://ai-integrated-search-134551-9-1334709079.sh.run.tcloudbase.com/api"
 }
 
