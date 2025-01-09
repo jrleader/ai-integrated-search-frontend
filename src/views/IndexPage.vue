@@ -112,6 +112,10 @@ import { storeToRefs } from 'pinia';
 //   suggestions: Array<Record<string, string>>;
 // }
 
+// 定义路由
+const route = useRoute();
+const router = useRouter();
+
 interface searchOptions {
   value: string;
   options: Array<Record<string, any>>;
@@ -174,8 +178,6 @@ const picList = ref([]);
 const videoList = ref([]);
 
 // 搜索框
-const route = useRoute();
-const router = useRouter();
 
 const mode = ref<TabsProps['tabPosition']>('top');
 
@@ -183,18 +185,18 @@ const mode = ref<TabsProps['tabPosition']>('top');
 // const activeKey = ref('post');
 
 // 将标签页状态更改为与路由同步，避免状态丢失
-const activeKey = route.params.category || 'picture';
+const activeKey = route.params.category || 'picture';   // 默认搜索图片
 const callback: TabsProps['onTabScroll'] = val => {
   console.log(val);
 };
 
 // 搜索关键词
-const searchText = ref(route.query.text || searchSuggestions.$state.options[0].label);
+const initSearchText = ref(route.query.text || searchSuggestions.$state.options[0].label);
 
 const initSearchParams = {
   // type: activeKey,
   type: activeKey,
-  text: searchText.value,
+  text: initSearchText.value,
   pageSize: 10,
   pageNum: 10,
 };
@@ -207,8 +209,7 @@ const searchParams = ref(initSearchParams)
 // const unique_sgns = new Set();
 
 const loadData = (params: any) => {
-  const type = searchParams.value.type;
-  // alert(type)
+  const { type } = params
   if(!type) {
     message.error('类别为空');
     return;
@@ -239,6 +240,9 @@ const loadData = (params: any) => {
     // alert(error);
     console.log(error);
   })
+
+  // alert(5)
+  // alert(activeKey)
 
   // 若搜索词为空，则不提供搜索建议
   if (query.searchText === undefined || query.searchText === '' || query.searchText === null) {
@@ -296,13 +300,19 @@ const loadData = (params: any) => {
 // 若函数中的任意变量被修改，就会重新执行一遍
 // 监听路由事件，并更新 URL
 watchEffect(() => {
+  // alert(2)
   searchParams.value = {
-    ...initSearchParams,        // 设置默认参数
-    text: route.query.text || searchText,
-    type: route.params.category || activeKey// 搜索类型设置为当前已被选中的标签
-    // type: activeKey, // 搜索类型设置为当前已被选中的标签
+    ...initSearchParams,          // 设置默认参数
+    text: route.query.text,
+    type: route.params.category || activeKey,   // 搜索类型设置为当前已被选中的标签
   } as any;
-  loadData(searchParams.value);
+  // alert(searchParams.value.type)
+  // alert(3)
+  // alert(activeKey)
+  // alert(4)
+  loadData(searchParams.value)
+  // alert(6)
+  // alert(activeKey)
 })
 
 // 分内容搜索接口
@@ -353,16 +363,21 @@ const onSearch = (value: string) => {
   // 改变 url, 保存用户的搜索状态
   router.push({
     query: {
+      ...searchParams.value,
       text: value,
     }
   })
 };
 
 const onTabChange = (key: string) => {
-  // alert(key)
+  // alert(activeKey)
+  // alert(1)
   router.push({
     path: `/${key}`,            // 设置动态路由 url
-    query: searchParams.value,
+    query: {
+      ...searchParams.value,
+      type: key,                // 同步 url 参数
+    }
   })
 };
 
