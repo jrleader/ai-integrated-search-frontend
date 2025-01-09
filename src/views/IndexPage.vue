@@ -112,6 +112,10 @@ import { storeToRefs } from 'pinia';
 //   suggestions: Array<Record<string, string>>;
 // }
 
+// 定义路由
+const route = useRoute();
+const router = useRouter();
+
 interface searchOptions {
   value: string;
   options: Array<Record<string, any>>;
@@ -183,18 +187,18 @@ const mode = ref<TabsProps['tabPosition']>('top');
 // const activeKey = ref('post');
 
 // 将标签页状态更改为与路由同步，避免状态丢失
-const activeKey = route.params.category || 'picture';
+const activeKey = route.params.category || 'picture';   // 默认搜索图片
 const callback: TabsProps['onTabScroll'] = val => {
   console.log(val);
 };
 
 // 搜索关键词
-const searchText = ref(route.query.text || searchSuggestions.$state.options[0].label);
+const initSearchText = ref(route.query.text || searchSuggestions.$state.options[0].label);
 
 const initSearchParams = {
   // type: activeKey,
   type: activeKey,
-  text: searchText.value,
+  text: initSearchText.value,
   pageSize: 10,
   pageNum: 10,
 };
@@ -207,8 +211,7 @@ const searchParams = ref(initSearchParams)
 // const unique_sgns = new Set();
 
 const loadData = (params: any) => {
-  const type = searchParams.value.type;
-  // alert(type)
+  const { type } = params
   if(!type) {
     message.error('类别为空');
     return;
@@ -297,10 +300,9 @@ const loadData = (params: any) => {
 // 监听路由事件，并更新 URL
 watchEffect(() => {
   searchParams.value = {
-    ...initSearchParams,        // 设置默认参数
-    text: route.query.text || searchText,
-    type: route.params.category || activeKey// 搜索类型设置为当前已被选中的标签
-    // type: activeKey, // 搜索类型设置为当前已被选中的标签
+    ...initSearchParams,          // 设置默认参数
+    text: route.query.text,
+    type: route.params.category || activeKey,   // 搜索类型设置为当前已被选中的标签
   } as any;
   loadData(searchParams.value);
 })
@@ -353,6 +355,7 @@ const onSearch = (value: string) => {
   // 改变 url, 保存用户的搜索状态
   router.push({
     query: {
+      ...searchParams.value,
       text: value,
     }
   })
@@ -362,7 +365,10 @@ const onTabChange = (key: string) => {
   // alert(key)
   router.push({
     path: `/${key}`,            // 设置动态路由 url
-    query: searchParams.value,
+    query: {
+      ...searchParams.value,
+      type: key,                // 同步 url 参数
+    }
   })
 };
 
