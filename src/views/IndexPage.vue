@@ -6,7 +6,8 @@
     </div> -->
     <MyDivider />
 
-    <div class="certain-category-search-wrapper" style="width: 100%">
+    <div class="certain-category-search-wrapper" style="width: 100%;margin-left:5em;">
+    <!-- <div class="certain-category-search-wrapper" style="width: 100%;"> -->
     <a-auto-complete
       v-model:value="autoCompleteBarValue"
       class="certain-category-search"
@@ -179,7 +180,8 @@ const videoList = ref([]);
 
 // 搜索框
 
-const mode = ref<TabsProps['tabPosition']>('top');
+// const mode = ref<TabsProps['tabPosition']>('top');
+  const mode = ref<TabsProps['tabPosition']>('left');
 
 // 标签页
 // const activeKey = ref('post');
@@ -381,7 +383,7 @@ const onTabChange = (key: string) => {
   })
   setTimeout(() => {
         location.reload();
-    }, 3000)
+    }, 1000)
 };
 
 // 获取搜索建议
