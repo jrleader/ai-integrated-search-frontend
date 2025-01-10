@@ -379,6 +379,9 @@ const onTabChange = (key: string) => {
       type: key,                // 同步 url 参数
     }
   })
+  setTimeout(() => {
+        location.reload();
+    }, 3000)
 };
 
 // 获取搜索建议
