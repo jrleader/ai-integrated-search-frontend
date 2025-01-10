@@ -381,7 +381,7 @@ const onTabChange = (key: string) => {
   })
   setTimeout(() => {
         location.reload();
-    }, 3000)
+    }, 1000)
 };
 
 // 获取搜索建议
